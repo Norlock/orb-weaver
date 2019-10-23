@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     list.append(new Node("Sunn O)))"));
     list.append(new Node("Insomnium"));
 
-    list.removeAt(3);
     const node = list.getAt(4)
+    list.removeAt(0);
+    node.prepend(new Node("Gojira"));
+
     console.log('node: ' + node.name + ' previous: ' + node.previous.name);
     element.innerText = list.print();
 

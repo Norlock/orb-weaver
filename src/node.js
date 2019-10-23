@@ -2,7 +2,6 @@ export class Node {
 
     constructor(name) {  
         this.name = name;
-        //this.id = id;
 
         this.next = null;
         this.previous = null;
@@ -15,18 +14,44 @@ export class Node {
         } else {  
             this.next.append(node);
         }
-        
+    }
+
+    prepend(node) {  
+        console.log('prepend', this);
+        if (this.isHead()) {  
+            this.previous = node;
+            node.previous = null;
+            node.next = this;
+        } else {  
+            this.previous.prepend(node);
+        }
     }
 
     print() {  
-        if (this.previous === null && this.next === null) {  
+        return this.getHead().printRecursivelyNext();
+    }
+
+    printRecursivelyPrevious() {  
+        if (this.isHead() && this.isTail()) {  
+            return "Head and tail is: " + this.name;
+        } else if (this.isTail()) {  
+            return "Tail is: " +  this.name + "\n" + this.previous.printRecursivelyPrevious();
+        } else if (this.isHead()) {  
+            return "\nHead is: " + this.name;
+        } else { 
+            return this.name + " " + this.previous.printRecursivelyPrevious();
+        }
+    }
+
+    printRecursivelyNext() {  
+        if (this.isHead() && this.isTail()) {  
             return "Head and tail is: " + this.name;
         } else if (this.isHead()) {  
-            return "Head is: " + this.name + "\n" + this.next.print() ;
+            return "Head is: " + this.name + "\n" + this.next.printRecursivelyNext();
         } else if (this.isTail()) {  
             return "\nTail is: " +  this.name;
         } else { 
-            return this.name + " " + this.next.print();
+            return this.name + " " + this.next.printRecursivelyNext();
         }
     }
 
@@ -50,8 +75,10 @@ export class Node {
         }
 
         if (index === 0) {  
-            this.previous.next = this.next;
-            this.next.previous = this.previous;
+            if (!this.isHead()) 
+                this.previous.next = this.next;
+            else if (!this.isTail())
+                this.next.previous = this.previous;
         } else if (!this.isTail()) {  
             this.next.removeAt(index - 1);
         } else {  
@@ -61,6 +88,20 @@ export class Node {
 
     isHead() {  
         return this.previous === null;
+    }
+
+    getHead() {  
+        if (this.isHead())
+            return this;
+        else
+            return this.previous.getHead();
+    }
+
+    getTail() {  
+        if (this.isTail())
+            return this;
+        else
+            return this.next.getTail();
     }
 
     isTail() {  
