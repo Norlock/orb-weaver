@@ -1,3 +1,4 @@
+const css = require('./styles/main.css');
 import { Node } from './node.js';
 
 let currentNode = new Node("Blut Aus Nord");
@@ -15,8 +16,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     currentNode.prepend(new Node("Gojira"));
 
     element.innerText = currentNode.print();
-
-    //return element;
 });
 
 document.addEventListener("keydown", event => {
