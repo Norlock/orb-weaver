@@ -2,13 +2,12 @@ export class Node {
 
     constructor(name) {  
         this.name = name;
-
         this.next = null;
         this.previous = null;
     }
 
     append(node) {  
-        if(this.next === null) {  
+        if(this.isTail()) {  
             node.previous = this;
             this.next = node;
         } else {  
@@ -17,10 +16,8 @@ export class Node {
     }
 
     prepend(node) {  
-        console.log('prepend', this);
         if (this.isHead()) {  
             this.previous = node;
-            node.previous = null;
             node.next = this;
         } else {  
             this.previous.prepend(node);
@@ -28,66 +25,55 @@ export class Node {
     }
 
     print() {  
-        return this.getHead().printRecursivelyNext();
+        return "Name: " + this.name;
     }
 
     printRecursivelyPrevious() {  
-        if (this.isHead() && this.isTail()) {  
-            return "Head and tail is: " + this.name;
-        } else if (this.isTail()) {  
-            return "Tail is: " +  this.name + "\n" + this.previous.printRecursivelyPrevious();
-        } else if (this.isHead()) {  
-            return "\nHead is: " + this.name;
+        if (this.isHead()) {  
+            return this.name;
         } else { 
             return this.name + " " + this.previous.printRecursivelyPrevious();
         }
     }
 
     printRecursivelyNext() {  
-        if (this.isHead() && this.isTail()) {  
-            return "Head and tail is: " + this.name;
-        } else if (this.isHead()) {  
-            return "Head is: " + this.name + "\n" + this.next.printRecursivelyNext();
-        } else if (this.isTail()) {  
-            return "\nTail is: " +  this.name;
+        if (this.isTail()) {  
+            return this.name;
         } else { 
             return this.name + " " + this.next.printRecursivelyNext();
         }
     }
 
-    getAt(index) {  
-        if (index < 0) {  
-            alert('Index to low');
-        }
+    moveNext(index) {  
+        this._validateIndex(index);
 
         if (index === 0) {  
             return this;
         } else if (!this.isTail()) {  
-            return this.next.getAt(index - 1);
+            return this.next.moveNext(index - 1);
         } else {  
-            alert('Index to high');
+            return this;
         }
     }
 
-    removeAt(index) {  
-        if (index < 0) {  
-            alert('Index to low');
-        }
+    movePrevious(index) {  
+        this._validateIndex(index);
 
         if (index === 0) {  
-            if (!this.isHead()) 
-                this.previous.next = this.next;
-            else if (!this.isTail())
-                this.next.previous = this.previous;
-        } else if (!this.isTail()) {  
-            this.next.removeAt(index - 1);
+            return this;
+        } else if (!this.isHead()) {  
+            return this.previous.movePrevious(index - 1);
         } else {  
-            alert('Index to high');
+            return this;
         }
     }
 
     isHead() {  
         return this.previous === null;
+    }
+
+    isTail() {  
+        return this.next === null;
     }
 
     getHead() {  
@@ -104,7 +90,10 @@ export class Node {
             return this.next.getTail();
     }
 
-    isTail() {  
-        return this.next === null;
+    _validateIndex(index) {  
+        if (isNaN(index))
+            throw "Index is not a number!";
+        if (index < 0) 
+            throw "Index can't be negative";
     }
 }

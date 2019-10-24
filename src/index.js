@@ -1,22 +1,48 @@
 import { Node } from './node.js';
 
+let currentNode = new Node("Blut Aus Nord");
+const element = document.getElementById('node-container');
+const arrowUp = 38;
+const arrowDown = 40;
+
 document.addEventListener('DOMContentLoaded', (event) => {
     //the event occurred
-    const element = document.getElementById('node-container');
-    const list = new Node("Blut Aus Nord");
-    list.append(new Node("Deathspell Omega"));
-    list.append(new Node("Drudkh"));
-    list.append(new Node("Urfaust"));
-    list.append(new Node("Sunn O)))"));
-    list.append(new Node("Insomnium"));
+    currentNode.append(new Node("Deathspell Omega"));
+    currentNode.append(new Node("Drudkh"));
+    currentNode.append(new Node("Urfaust"));
+    currentNode.append(new Node("Sunn O)))"));
+    currentNode.append(new Node("Insomnium"));
+    currentNode.prepend(new Node("Gojira"));
 
-    const node = list.getAt(4)
-    list.removeAt(0);
-    node.prepend(new Node("Gojira"));
-
-    console.log('node: ' + node.name + ' previous: ' + node.previous.name);
-    element.innerText = list.print();
+    element.innerText = currentNode.print();
 
     //return element;
 });
 
+document.addEventListener("keydown", event => {
+    console.log('detect keydown');
+    if (event.isComposing || event.keyCode === 229) {
+        return;
+    }
+
+    const moveNext = function() {
+        currentNode = currentNode.moveNext(1);
+    };
+
+    const movePrevious = function() {
+        currentNode = currentNode.movePrevious(1);
+    };
+
+    switch (event.keyCode) {  
+        case arrowUp: 
+            moveNext();       
+            break;
+        case arrowDown:
+            movePrevious();
+            break;
+        default:
+            throw "Unknown key pressed";
+    }
+
+    element.innerText = currentNode.print();
+});
