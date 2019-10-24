@@ -3,6 +3,7 @@ import { Node } from './node.js';
 
 let currentNode = new Node("Blut Aus Nord");
 const element = document.getElementById('node-container');
+const title = document.getElementById('title');
 const arrowUp = 38;
 const arrowDown = 40;
 
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     currentNode.append(new Node("Insomnium"));
     currentNode.prepend(new Node("Gojira"));
 
-    element.innerText = currentNode.print();
+    title.innerText = currentNode.print();
 });
 
 document.addEventListener("keydown", event => {
@@ -43,5 +44,5 @@ document.addEventListener("keydown", event => {
             throw "Unknown key pressed";
     }
 
-    element.innerText = currentNode.print();
+    title.innerText = currentNode.print();
 });

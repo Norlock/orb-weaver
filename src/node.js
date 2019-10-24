@@ -25,7 +25,7 @@ export class Node {
     }
 
     print() {  
-        return "Name: " + this.name;
+        return this.name;
     }
 
     printRecursivelyPrevious() {  
