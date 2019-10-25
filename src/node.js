@@ -14,14 +14,9 @@ export class Node {
         return node;
     }
 
-    appendAtTail(node) {  
-        if(this.isTail()) {  
-            node.previous = this;
-            this.next = node;
-            return node;
-        } else {  
-            return this.next.append(node);
-        }
+    appendTail(node) {  
+        const tail = this.getTail();
+        return tail.append(node);
     }
 
     prepend(node) {  
@@ -33,14 +28,9 @@ export class Node {
         return node;
     }
 
-    prependAtHead(node) {  
-        if (this.isHead()) {  
-            this.previous = node;
-            node.next = this;
-            return node;
-        } else {  
-            return this.previous.prepend(node);
-        }
+    prependHead(node) {  
+        const head = this.getHead();
+        return head.prepend(node);
     }
 
     moveNext(index) {  

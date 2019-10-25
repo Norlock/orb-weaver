@@ -2,7 +2,6 @@ const css = require('./styles/main.css');
 import { OrbWeaverNode } from './orb-weaver-node.js';
 
 let currentNode = new OrbWeaverNode("Blut Aus Nord");
-const container = document.getElementById('node-container');
 const list = document.getElementById('node-list-container');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     console.log('currentNode', currentNode);
 
-    title.innerText = currentNode.print();
+    title.innerText = currentNode.name;
 });
 
 document.addEventListener("keydown", event => {
@@ -38,7 +37,7 @@ document.addEventListener("keydown", event => {
         currentNode = currentNode.movePrevious(1);
     };
 
-    const insert = function() {
+    const append = function() {
         const bandName = prompt("Please enter the band name", "");
 
         if (bandName == null || bandName == "") {
@@ -48,6 +47,10 @@ document.addEventListener("keydown", event => {
             errorMsg.style.display = "none";
             currentNode = currentNode.append(new OrbWeaverNode(bandName));
         }
+    };
+
+    const addList = function() {  
+
     };
 
     console.log(event.keyCode);
@@ -60,11 +63,11 @@ document.addEventListener("keydown", event => {
             movePrevious();
             break;
         case enter:
-            insert();
+            append();
         default:
             console.log('unknown key pressed');
             //throw "Unknown key pressed";
     }
 
-    title.innerText = currentNode.print();
+    title.innerText = currentNode.name;
 });
