@@ -1,14 +1,25 @@
 #node-container {  
     background-color: lightgray;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     border: solid 1px black;
     display: flex;
+    flex-direction: column;
 }
 
 #title {  
-    width: inherit;
+    flex: 1;
     text-align: center;
     margin-top: 10px;
     font-size: 24px;
+}
+
+#error-msg {  
+    flex: 1;
+    max-height: 25px;
+    display: none;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    text-align: center;
 }

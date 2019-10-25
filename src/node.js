@@ -1,46 +1,45 @@
 export class Node {  
 
-    constructor(name) {  
-        this.name = name;
+    constructor() {  
         this.next = null;
         this.previous = null;
     }
 
     append(node) {  
+        node.previous = this;
+        node.next = this.next;
+        if(!this.isTail())
+            this.next.previous = node;
+        this.next = node;
+        return node;
+    }
+
+    appendAtTail(node) {  
         if(this.isTail()) {  
             node.previous = this;
             this.next = node;
+            return node;
         } else {  
-            this.next.append(node);
+            return this.next.append(node);
         }
     }
 
     prepend(node) {  
+        node.next = this;
+        node.previous = this.previous; 
+        if(!this.isHead())
+            this.previous.next = node;
+        this.previous = node;
+        return node;
+    }
+
+    prependAtHead(node) {  
         if (this.isHead()) {  
             this.previous = node;
             node.next = this;
+            return node;
         } else {  
-            this.previous.prepend(node);
-        }
-    }
-
-    print() {  
-        return this.name;
-    }
-
-    printRecursivelyPrevious() {  
-        if (this.isHead()) {  
-            return this.name;
-        } else { 
-            return this.name + " " + this.previous.printRecursivelyPrevious();
-        }
-    }
-
-    printRecursivelyNext() {  
-        if (this.isTail()) {  
-            return this.name;
-        } else { 
-            return this.name + " " + this.next.printRecursivelyNext();
+            return this.previous.prepend(node);
         }
     }
 
