@@ -14,11 +14,6 @@ export class Node {
         return node;
     }
 
-    appendTail(node) {  
-        const tail = this.getTail();
-        return tail.append(node);
-    }
-
     prepend(node) {  
         node.next = this;
         node.previous = this.previous; 
@@ -28,33 +23,46 @@ export class Node {
         return node;
     }
 
+    appendTail(node) {  
+        const tail = this.getTail();
+        return tail.append(node);
+    }
+
     prependHead(node) {  
         const head = this.getHead();
         return head.prepend(node);
     }
 
+    setSelected() {  
+        this.selected = true;
+    }
+
+    unsetSelected() {  
+        this.selected = false;
+    }
+
     moveNext(index) {  
         this._validateIndex(index);
 
-        if (index === 0) {  
+        if (index === 0 || this.isTail()) {  
+            this.setSelected();
             return this;
-        } else if (!this.isTail()) {  
-            return this.next.moveNext(index - 1);
         } else {  
-            return this;
-        }
+            this.unsetSelected();
+            return this.next.moveNext(index - 1);
+        } 
     }
 
     movePrevious(index) {  
         this._validateIndex(index);
 
-        if (index === 0) {  
+        if (index === 0 || this.isHead()) {  
+            this.setSelected();
             return this;
-        } else if (!this.isHead()) {  
-            return this.previous.movePrevious(index - 1);
         } else {  
-            return this;
-        }
+            this.unsetSelected();
+            return this.previous.movePrevious(index - 1);
+        } 
     }
 
     isHead() {  

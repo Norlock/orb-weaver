@@ -1,4 +1,8 @@
-#node-container {  
+.node-list-container {  
+}
+
+.selected {  
+    color: green;
 }
 
 #current-item {  

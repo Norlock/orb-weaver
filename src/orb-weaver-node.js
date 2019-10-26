@@ -8,29 +8,41 @@ export class OrbWeaverNode extends Node {
         this.element.innerText = this.name;
     }
 
-    render() {  
-        const ol = document.createElement('ol');
-        ol = this.getPreviousElements(ol);
-        const current = this.getElement();
-        return this.name;
+    render(list) {  
+        this.element.classList.add("selected");
+        console.log(list);
+        list = this.renderPreviousElements(list);
+        list.appendChild(this.element);
+        return this.renderNextElements(list);
+    }
+
+    setSelected() {  
+        this.element.classList.add("selected");
+    }
+
+    unsetSelected() {  
+        this.element.classList.remove("selected");
     }
 
     // Only return previous elements (discard this).
-    getPreviousElements(list) {  
-        if (this.isHead()) {  
-            return list;
-        } else { 
-            list = this.previous.getPreviousElements(list);
+    renderPreviousElements(list) {  
+        if (!this.isHead()) {  
+            if (!this.previous.isHead()) {  
+                list = this.previous.renderPreviousElements(list);
+            }
             list.appendChild(this.previous.element);
         }
+        return list;
     }
 
-    getNextElements(list) {  
-        if (this.isTail()) {  
-            return list;
-        } else { 
+    // Only return next elements (discard this).
+    renderNextElements(list) {  
+        if (!this.isTail()) {  
             list.appendChild(this.next.element);
-            return this.next.getNextElements(list);
-        }
+            if (!this.next.isTail()) {  
+                list = this.next.renderNextElements(list);
+            }
+        }  
+        return list;
     }
 }

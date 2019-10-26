@@ -2,7 +2,8 @@ const css = require('./styles/main.css');
 import { OrbWeaverNode } from './orb-weaver-node.js';
 
 let currentNode = new OrbWeaverNode("Blut Aus Nord");
-const list = document.getElementById('node-list-container');
+const listContainer = document.getElementById('node-list-container');
+const list = document.getElementById('ow-list');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
 const arrowUp = 38;
@@ -10,7 +11,8 @@ const arrowDown = 40;
 const enter = 13;
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    //the event occurred
+    // Adding dummy nodes
+    currentNode = currentNode.prepend(new OrbWeaverNode("Be'lakor"));
     currentNode = currentNode.append(new OrbWeaverNode("Deathspell Omega"));
     currentNode = currentNode.append(new OrbWeaverNode("Drudkh"));
     currentNode = currentNode.append(new OrbWeaverNode("Urfaust"));
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     
     console.log('currentNode', currentNode);
 
-    title.innerText = currentNode.name;
+    render();
 });
 
 document.addEventListener("keydown", event => {
@@ -49,10 +51,6 @@ document.addEventListener("keydown", event => {
         }
     };
 
-    const addList = function() {  
-
-    };
-
     console.log(event.keyCode);
 
     switch (event.keyCode) {  
@@ -69,5 +67,9 @@ document.addEventListener("keydown", event => {
             //throw "Unknown key pressed";
     }
 
-    title.innerText = currentNode.name;
 });
+
+function render() {  
+    title.innerText = currentNode.name;
+    currentNode.render(list);
+}
