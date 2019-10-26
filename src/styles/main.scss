@@ -1,0 +1,38 @@
+.node-list-container {  
+    .ow-list {  
+        display: flex;
+        flex-direction: column;
+    }
+
+    .selected {  
+      color: green;
+    }
+}
+
+
+#current-item {  
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    border: solid 1px black;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    background-color: lightgray;
+
+    #title {  
+        margin-top: 10px;
+        font-size: 24px;
+    }
+
+    #error-msg {  
+        flex: 1;
+        max-height: 25px;
+        display: none;
+        background-color: red;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+}
+

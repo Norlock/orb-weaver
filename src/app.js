@@ -1,14 +1,12 @@
-const css = require('./styles/main.css');
+import './styles/main.scss';
 import { OrbWeaverNode } from './orb-weaver-node.js';
+import { constants } from './constants.js';
 
 let currentNode = new OrbWeaverNode("Blut Aus Nord");
 const listContainer = document.getElementById('node-list-container');
 const list = document.getElementById('ow-list');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
-const arrowUp = 38;
-const arrowDown = 40;
-const enter = 13;
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // Adding dummy nodes
@@ -54,13 +52,13 @@ document.addEventListener("keydown", event => {
     console.log(event.keyCode);
 
     switch (event.keyCode) {  
-        case arrowUp: 
+        case constants.ARROW_UP: 
             moveNext();       
             break;
-        case arrowDown:
+        case constants.ARROW_DOWN:
             movePrevious();
             break;
-        case enter:
+        case constants.ENTER:
             append();
         default:
             console.log('unknown key pressed');
