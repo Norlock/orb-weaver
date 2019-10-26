@@ -7,9 +7,9 @@ const listContainer = document.getElementById('node-list-container');
 
 export class Canvas {  
 
-    constructor() {  
-        this.width = window.innerWidth;
-        this.height = 1000;
+    constructor(rootNode) {  
+        this.width = window.innerWidth - 500;
+        this.height = 700;
 
         this.stage = new Konva.Stage({
             container: 'canvas-container',

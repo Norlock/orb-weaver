@@ -6,7 +6,7 @@ export class Node {
         this.children = [];
     }
 
-    add(node) {  
+    addChild(node) {  
         node.previous = this;
         this.children.push(node);
         return this;
@@ -46,7 +46,7 @@ export class Node {
 
         const previous = this.previous;
 
-        if (previous.nextIndex !== previous.getLastIndex()) 
+        if (previous.nextIndex < previous.getLastIndex()) 
             previous.nextIndex++;
 
         return this.toggleSelected(previous.getNext());
