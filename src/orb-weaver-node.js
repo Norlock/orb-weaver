@@ -1,16 +1,17 @@
 import { Node } from './node.js';
 export class OrbWeaverNode extends Node {  
-    constructor(name) {  
-        super();
+
+    constructor(layer, name) {  
+        super(layer);
         this.name = name;
         this.width = 300;
     }
 
-    render(layer, x, y) {  
+    render(x, y) {  
+
         // since this text is inside of a defined area, we can center it using
         // align: 'center'
-        
-        const nodeText = new Konva.Text({
+        this.nodeText = new Konva.Text({
             x: x,
             y: y,
             text: this.name,
@@ -22,14 +23,14 @@ export class OrbWeaverNode extends Node {
             align: 'center'
         });
 
-        const rect = new Konva.Rect({
+        this.rect = new Konva.Rect({
             x: x,
             y: y,
             stroke: '#555',
             strokeWidth: 2,
             fill: '#ddd',
             width: this.width,
-            height: nodeText.height(),
+            height: this.nodeText.height(),
             shadowColor: 'black',
             shadowBlur: 10,
             shadowOffsetX: 10,
@@ -38,22 +39,28 @@ export class OrbWeaverNode extends Node {
             cornerRadius: 10
         });
 
-        layer.add(rect);
-        layer.add(nodeText);
+        this.layer.add(this.rect);
+        this.layer.add(this.nodeText);
 
         let newX = x + this.width + 50;
         let newY = y;
         for (let child of this.children) {  
-            child.render(layer, newX, newY);
-            newY = newY + nodeText.height() + 50;
+            child.render(newX, newY);
+            newY = newY + this.nodeText.height() + 50;
         }
     }
 
     setSelected() {  
         super.setSelected();
+        this.nodeText.fontSize(20);
+        this.rect.fill('#dfd');
+        this.layer.draw();
     }
 
     unsetSelected() {  
-        super.setSelected();
+        super.unsetSelected();
+        this.nodeText.fontSize(18);
+        this.rect.fill('#ddd');
+        this.layer.draw();
     }
 }

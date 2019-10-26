@@ -3,26 +3,28 @@ import { OrbWeaverNode } from './orb-weaver-node.js';
 import { constants } from './constants.js';
 import { Canvas } from './canvas.js';
 
-let currentNode = new OrbWeaverNode("Blut Aus Nord");
 const list = document.getElementById('ow-list');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
 
+let currentNode;
 document.addEventListener('DOMContentLoaded', (event) => {
+    const canvas = new Canvas();
+    
     // Adding dummy nodes
-    currentNode = currentNode.addChild(new OrbWeaverNode("Be'lakor"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Urfaust"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Sunn O)))"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium"));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira"));
+    currentNode = new OrbWeaverNode(canvas.layer, "Blut Aus Nord");
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Be'lakor"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Deathspell Omega"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Drudkh"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Urfaust"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Sunn O)))"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Insomnium"));
+    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Gojira"));
     
     console.log('currentNode', currentNode);
-    currentNode.setSelected();
 
-    const canvas = new Canvas(currentNode.getRoot());
-    //render(currentNode.getRoot());
+    canvas.render(currentNode.getRoot());
+
     title.innerText = currentNode.name;
 });
 
@@ -40,12 +42,11 @@ document.addEventListener("keydown", event => {
         } else {
             errorMsg.style.display = "none";
             currentNode.addChild(new OrbWeaverNode(bandName));
-            //currentNode.render(list);
             console.log('root', currentNode.getRoot());
         }
     };
 
-    console.log(event.keyCode);
+    //console.log(event.keyCode);
 
     switch (event.keyCode) {  
         case constants.ARROW_RIGHT: 
@@ -70,7 +71,3 @@ document.addEventListener("keydown", event => {
 
     title.innerText = currentNode.name;
 });
-
-function render(root) {  
-    root.render(list);
-}

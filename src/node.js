@@ -1,6 +1,7 @@
 export class Node {  
 
-    constructor() {  
+    constructor(layer) {  
+        this.layer = layer;
         this.nextIndex = 0;
         this.previous = null;
         this.children = [];
@@ -66,16 +67,16 @@ export class Node {
     }
 
     // Broken
-    prepend(node) {  
-        // Set node pointers
-        node.add(this);
-        node.previous = this.previous; 
-        if(!this.isRoot())
-            this.previous.next = node; // Set previous pointers
-        this.previous = node; // Set this pointer
+    //prepend(node) {  
+        //// Set node pointers
+        //node.add(this);
+        //node.previous = this.previous; 
+        //if(!this.isRoot())
+            //this.previous.next = node; // Set previous pointers
+        //this.previous = node; // Set this pointer
 
-        return this.toggleSelected(node);
-    }
+        //return this.toggleSelected(node);
+    //}
 
     prependHead(node) {  
         const head = this.getRoot();

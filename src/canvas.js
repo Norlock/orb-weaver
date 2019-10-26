@@ -7,7 +7,7 @@ const listContainer = document.getElementById('node-list-container');
 
 export class Canvas {  
 
-    constructor(rootNode) {  
+    constructor() {  
         this.width = window.innerWidth - 500;
         this.height = 700;
 
@@ -17,11 +17,14 @@ export class Canvas {
             height: this.height,
             draggable: true
         });
-        const layer = new Konva.Layer();
-        this.stage.add(layer);
-        rootNode.render(layer, 20, 20);
 
-        layer.draw();
+        this.layer = new Konva.Layer();
+        this.stage.add(this.layer);
     }
 
+    render(root) {  
+        root.render(20, 20);
+        root.setSelected();
+        this.layer.draw();
+    }
 }
