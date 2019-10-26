@@ -21,6 +21,7 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
+    "konva": "^4.0.16",
     "lodash": "^4.17.15"
   }
 }

@@ -4,9 +4,9 @@
 * npm start
 
 ### TODO
-* Get current index of node [x]
+* Get current index of node [x] // Do we want this?
 * Add branches on nodes [x]
-* Show branches [x]
+* Show childNodes [v]
 * Implement simple Node add GUI [v]
 * render elements in a list [v]
 * Remove Nodes [x]

@@ -1,9 +1,9 @@
 import './styles/main.scss';
 import { OrbWeaverNode } from './orb-weaver-node.js';
 import { constants } from './constants.js';
+import { Canvas } from './canvas.js';
 
 let currentNode = new OrbWeaverNode("Blut Aus Nord");
-const listContainer = document.getElementById('node-list-container');
 const list = document.getElementById('ow-list');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
@@ -19,17 +19,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
     currentNode = currentNode.add(new OrbWeaverNode("Gojira"));
     
     console.log('currentNode', currentNode);
+    currentNode.setSelected();
 
-    render(currentNode.getRoot());
+    const canvas = new Canvas();
+    //render(currentNode.getRoot());
+    title.innerText = currentNode.name;
 });
 
 document.addEventListener("keydown", event => {
-    let iterateNode = currentNode;
     if (event.isComposing || event.keyCode === 229) {
         return;
     }
 
-    const append = function() {
+    const addNode = function() {
         const bandName = prompt("Please enter the band name", "");
 
         if (bandName == null || bandName == "") {
@@ -37,8 +39,10 @@ document.addEventListener("keydown", event => {
             errorMsg.style.display = "block";
         } else {
             errorMsg.style.display = "none";
-            currentNode = currentNode.prepend(new OrbWeaverNode(bandName));
-            list.insertBefore(currentNode.element, currentNode.next.element)
+            currentNode.add(new OrbWeaverNode(bandName));
+            //currentNode.render(list);
+            console.log('root', currentNode.getRoot());
+            //list.insertBefore(currentNode.element, currentNode.next.element)
         }
     };
 
@@ -58,16 +62,16 @@ document.addEventListener("keydown", event => {
             currentNode = currentNode.getNextSibling();
             break;
         case constants.ENTER:
-            append();
+            addNode();
             break;
         default:
             console.log('unknown key pressed');
             //throw "Unknown key pressed";
     }
 
+    title.innerText = currentNode.name;
 });
 
 function render(root) {  
-    title.innerText = currentNode.name;
     root.render(list);
 }

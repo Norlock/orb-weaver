@@ -9,14 +9,8 @@ export class OrbWeaverNode extends Node {
         this.element.innerText = this.name;
     }
 
-    render(list) {  
-        console.log(list);
-        list = this.renderPreviousElements(list);
-        list.appendChild(this.element);
-        return this.renderNextElements(list);
-    }
-
     render(listElement) {  
+        console.log(listElement);
         listElement.appendChild(this.element);
         if (!this.isLeaf()) {  
             const li = document.createElement('li');
