@@ -10,32 +10,24 @@ const errorMsg = document.getElementById('error-msg');
 
 document.addEventListener('DOMContentLoaded', (event) => {
     // Adding dummy nodes
-    currentNode = currentNode.prepend(new OrbWeaverNode("Be'lakor"));
-    currentNode = currentNode.append(new OrbWeaverNode("Deathspell Omega"));
-    currentNode = currentNode.append(new OrbWeaverNode("Drudkh"));
-    currentNode = currentNode.append(new OrbWeaverNode("Urfaust"));
-    currentNode = currentNode.append(new OrbWeaverNode("Sunn O)))"));
-    currentNode = currentNode.append(new OrbWeaverNode("Insomnium"));
-    currentNode = currentNode.prepend(new OrbWeaverNode("Gojira"));
+    currentNode = currentNode.add(new OrbWeaverNode("Be'lakor"));
+    currentNode = currentNode.add(new OrbWeaverNode("Deathspell Omega"));
+    currentNode = currentNode.add(new OrbWeaverNode("Drudkh"));
+    currentNode = currentNode.add(new OrbWeaverNode("Urfaust"));
+    currentNode = currentNode.add(new OrbWeaverNode("Sunn O)))"));
+    currentNode = currentNode.add(new OrbWeaverNode("Insomnium"));
+    currentNode = currentNode.add(new OrbWeaverNode("Gojira"));
     
     console.log('currentNode', currentNode);
 
-    render();
+    render(currentNode.getRoot());
 });
 
 document.addEventListener("keydown", event => {
-    console.log('detect keydown');
+    let iterateNode = currentNode;
     if (event.isComposing || event.keyCode === 229) {
         return;
     }
-
-    const moveNext = function() {
-        currentNode = currentNode.moveNext(1);
-    };
-
-    const movePrevious = function() {
-        currentNode = currentNode.movePrevious(1);
-    };
 
     const append = function() {
         const bandName = prompt("Please enter the band name", "");
@@ -45,21 +37,29 @@ document.addEventListener("keydown", event => {
             errorMsg.style.display = "block";
         } else {
             errorMsg.style.display = "none";
-            currentNode = currentNode.append(new OrbWeaverNode(bandName));
+            currentNode = currentNode.prepend(new OrbWeaverNode(bandName));
+            list.insertBefore(currentNode.element, currentNode.next.element)
         }
     };
 
     console.log(event.keyCode);
 
     switch (event.keyCode) {  
-        case constants.ARROW_UP: 
-            moveNext();       
+        case constants.ARROW_RIGHT: 
+            currentNode = currentNode.moveNext();
+            break;
+        case constants.ARROW_LEFT:
+            currentNode = currentNode.movePrevious();
+            break;
+        case constants.ARROW_UP:
+            currentNode = currentNode.getPreviousSibling();
             break;
         case constants.ARROW_DOWN:
-            movePrevious();
+            currentNode = currentNode.getNextSibling();
             break;
         case constants.ENTER:
             append();
+            break;
         default:
             console.log('unknown key pressed');
             //throw "Unknown key pressed";
@@ -67,7 +67,7 @@ document.addEventListener("keydown", event => {
 
 });
 
-function render() {  
+function render(root) {  
     title.innerText = currentNode.name;
-    currentNode.render(list);
+    root.render(list);
 }

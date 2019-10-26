@@ -1,35 +1,84 @@
 export class Node {  
 
     constructor() {  
-        this.next = null;
+        this.nextIndex = 0;
         this.previous = null;
+        this.children = [];
     }
 
-    append(node) {  
+    add(node) {  
         node.previous = this;
-        node.next = this.next;
-        if(!this.isTail())
-            this.next.previous = node;
-        this.next = node;
-        return node;
+        this.children.push(node);
+        return this;
     }
 
+    getNext() {  
+        return this.children[this.nextIndex];
+    }
+
+    toggleSelected(next) {  
+        this.unsetSelected();
+        next.setSelected();
+        return next;
+    }
+
+    // Moves to the current node in nextIndex
+    moveNext() {  
+        if (this.isLeaf()) {  
+            return this;
+        } else {  
+            return this.toggleSelected(this.getNext());
+        }
+    }
+
+    // Moves to the previous node
+    movePrevious() {  
+        if (this.isRoot()) {  
+            return this;
+        } else {  
+            return this.toggleSelected(this.previous);
+        }
+    }
+
+    getNextSibling() {  
+        if (this.isRoot()) 
+            return this;
+
+        const previous = this.previous;
+
+        if (previous.nextIndex !== previous.getLastIndex()) 
+            previous.nextIndex++;
+
+        return this.toggleSelected(previous.getNext());
+
+    }
+
+    getPreviousSibling() {  
+        if (this.isRoot()) 
+            return this;
+        
+        const previous = this.previous;
+
+        if (previous.nextIndex > 0) 
+            previous.nextIndex--;
+
+        return this.toggleSelected(previous.getNext());
+    }
+
+    // Broken
     prepend(node) {  
-        node.next = this;
+        // Set node pointers
+        node.add(this);
         node.previous = this.previous; 
-        if(!this.isHead())
-            this.previous.next = node;
-        this.previous = node;
-        return node;
-    }
+        if(!this.isRoot())
+            this.previous.next = node; // Set previous pointers
+        this.previous = node; // Set this pointer
 
-    appendTail(node) {  
-        const tail = this.getTail();
-        return tail.append(node);
+        return this.toggleSelected(node);
     }
 
     prependHead(node) {  
-        const head = this.getHead();
+        const head = this.getRoot();
         return head.prepend(node);
     }
 
@@ -41,50 +90,30 @@ export class Node {
         this.selected = false;
     }
 
-    moveNext(index) {  
-        this._validateIndex(index);
-
-        if (index === 0 || this.isTail()) {  
-            this.setSelected();
+    getRoot() {  
+        if (this.isRoot())
             return this;
-        } else {  
-            this.unsetSelected();
-            return this.next.moveNext(index - 1);
-        } 
+        else
+            return this.previous.getRoot();
     }
 
-    movePrevious(index) {  
-        this._validateIndex(index);
-
-        if (index === 0 || this.isHead()) {  
-            this.setSelected();
+    getLeaf() {  
+        if (this.isLeaf())
             return this;
-        } else {  
-            this.unsetSelected();
-            return this.previous.movePrevious(index - 1);
-        } 
+        else
+            return this.getNext();
     }
 
-    isHead() {  
+    isRoot() {  
         return this.previous === null;
     }
 
-    isTail() {  
-        return this.next === null;
+    isLeaf() {  
+        return this.children.length === 0;
     }
 
-    getHead() {  
-        if (this.isHead())
-            return this;
-        else
-            return this.previous.getHead();
-    }
-
-    getTail() {  
-        if (this.isTail())
-            return this;
-        else
-            return this.next.getTail();
+    getLastIndex() {  
+        return this.children.length - 1;
     }
 
     _validateIndex(index) {  

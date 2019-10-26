@@ -1,12 +1,26 @@
 .node-list-container {  
     .ow-list {  
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+
+        ol {  
+            padding: 0;
+        }
+        .ow-li {  
+            width: 200px;
+            height: 50px;
+            background-color: lightgray;
+            margin-right: 10px;
+            border: solid 1px black;
+            text-align: center;
+            padding-top: 10px;
+
+            &.selected {  
+                color: green;
+            }
+        }
     }
 
-    .selected {  
-      color: green;
-    }
 }
 
 
