@@ -17,22 +17,11 @@ export class Canvas {
             height: this.height,
             draggable: true
         });
-        var layer = new Konva.Layer();
+        const layer = new Konva.Layer();
         this.stage.add(layer);
+        rootNode.render(layer, 20, 20);
 
-        for (var i = 0; i < NUMBER; i++) {
-            layer.add(this.generateNode());
-        }
         layer.draw();
     }
 
-    generateNode() {
-        return new Konva.Circle({
-            x: WIDTH * Math.random(),
-            y: HEIGHT * Math.random(),
-            radius: 50,
-            fill: 'red',
-            stroke: 'black'
-        });
-    }
 }
