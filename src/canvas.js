@@ -1,15 +1,10 @@
 import Konva from 'konva';
 
-const WIDTH = 3000;
-const HEIGHT = 3000;
-const NUMBER = 200;
-const listContainer = document.getElementById('node-list-container');
-
 export class Canvas {  
 
     constructor() {  
         this.width = window.innerWidth - 500;
-        this.height = 700;
+        this.height = 800;
 
         this.stage = new Konva.Stage({
             container: 'canvas-container',
@@ -25,6 +20,7 @@ export class Canvas {
     render(root) {  
         root.render(20, 20);
         root.setSelected();
+        root.setVisible(true);
         this.layer.draw();
     }
 }

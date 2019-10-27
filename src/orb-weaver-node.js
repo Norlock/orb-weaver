@@ -4,33 +4,42 @@ export class OrbWeaverNode extends Node {
     constructor(layer, name) {  
         super(layer);
         this.name = name;
-        this.width = 300;
+        this.element = {};
+        this.element.width = 300;
+        this.element.height = 60;
     }
 
     render(x, y) {  
+        console.log('node', this);
+
+        this.element.group = new Konva.Group({
+            x: x,
+            y: y
+        });
 
         // since this text is inside of a defined area, we can center it using
         // align: 'center'
-        this.nodeText = new Konva.Text({
-            x: x,
-            y: y,
+        this.element.nodeText = new Konva.Text({
+            x: 0,
+            y: 0,
             text: this.name,
+            width: this.element.width,
+            height: this.element.height,
             fontSize: 18,
             fontFamily: 'Calibri',
             fill: '#555',
-            width: this.width,
             padding: 20,
             align: 'center'
         });
 
-        this.rect = new Konva.Rect({
-            x: x,
-            y: y,
+        this.element.rect = new Konva.Rect({
+            x: 0,
+            y: 0,
             stroke: '#555',
             strokeWidth: 2,
             fill: '#ddd',
-            width: this.width,
-            height: this.nodeText.height(),
+            width: this.element.width,
+            height: this.element.height,
             shadowColor: 'black',
             shadowBlur: 10,
             shadowOffsetX: 10,
@@ -39,28 +48,40 @@ export class OrbWeaverNode extends Node {
             cornerRadius: 10
         });
 
-        this.layer.add(this.rect);
-        this.layer.add(this.nodeText);
+        this.element.group.add(this.element.rect);
+        this.element.group.add(this.element.nodeText);
+        this.layer.add(this.element.group);
 
-        let newX = x + this.width + 50;
+        let newX = x + this.element.width + 50;
         let newY = y;
+
         for (let child of this.children) {  
             child.render(newX, newY);
-            newY = newY + this.nodeText.height() + 50;
+            newY = newY + this.element.height + 50;
         }
     }
 
     setSelected() {  
         super.setSelected();
-        this.nodeText.fontSize(20);
-        this.rect.fill('#dfd');
-        this.layer.draw();
+        this.element.nodeText.fontSize(20);
+        this.element.rect.fill('#dfd');
     }
 
     unsetSelected() {  
         super.unsetSelected();
-        this.nodeText.fontSize(18);
-        this.rect.fill('#ddd');
-        this.layer.draw();
+        this.element.nodeText.fontSize(18);
+        this.element.rect.fill('#ddd');
+    }
+
+    setVisible(visible) {  
+        if (visible) {  
+            this.element.group.show();
+        } else {  
+            this.element.group.hide();
+        }
+
+        for (let child of this.children) {
+            child.setVisible(visible);
+        }
     }
 }

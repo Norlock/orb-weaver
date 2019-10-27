@@ -4,4 +4,4 @@ export const constants = {
     ARROW_RIGHT: 39,
     ARROW_DOWN: 40,
     ENTER: 13
-}
+};

@@ -3,21 +3,29 @@ import { OrbWeaverNode } from './orb-weaver-node.js';
 import { constants } from './constants.js';
 import { Canvas } from './canvas.js';
 
-const list = document.getElementById('ow-list');
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
 
 let currentNode;
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     const canvas = new Canvas();
-    
+
     // Adding dummy nodes
     currentNode = new OrbWeaverNode(canvas.layer, "Blut Aus Nord");
     currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Be'lakor"));
     currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Deathspell Omega"));
     currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Drudkh"));
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Urfaust"));
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Sunn O)))"));
+
+    const urfaust = new OrbWeaverNode(canvas.layer, "Urfaust");
+    urfaust.addChild(new OrbWeaverNode(canvas.layer, "Ruins of beverast"));
+    urfaust.addChild(new OrbWeaverNode(canvas.layer, "Esoteric"));
+    currentNode = currentNode.addChild(urfaust);
+
+    const sunn = new OrbWeaverNode(canvas.layer, "Sunn O)))");
+    sunn.addChild(new OrbWeaverNode(canvas.layer, "Leprous"));
+    sunn.addChild(new OrbWeaverNode(canvas.layer, "Robbie Basho"));
+    currentNode.addChild(sunn);
+
     currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Insomnium"));
     currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Gojira"));
     
@@ -56,10 +64,10 @@ document.addEventListener("keydown", event => {
             currentNode = currentNode.movePrevious();
             break;
         case constants.ARROW_UP:
-            currentNode = currentNode.getPreviousSibling();
+            currentNode = currentNode.movePreviousSibling();
             break;
         case constants.ARROW_DOWN:
-            currentNode = currentNode.getNextSibling();
+            currentNode = currentNode.moveNextSibling();
             break;
         case constants.ENTER:
             addNode();

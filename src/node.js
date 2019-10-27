@@ -17,10 +17,12 @@ export class Node {
         return this.children[this.nextIndex];
     }
 
-    toggleSelected(next) {  
+    updateCanvas(node) {  
         this.unsetSelected();
-        next.setSelected();
-        return next;
+        node.setSelected();
+        this.layer.draw();
+
+        return node;
     }
 
     // Moves to the current node in nextIndex
@@ -28,7 +30,11 @@ export class Node {
         if (this.isLeaf()) {  
             return this;
         } else {  
-            return this.toggleSelected(this.getNext());
+            const next = this.getNext();
+            for (let child of next.children) {
+                child.setVisible(true);
+            }
+            return this.updateCanvas(next);
         }
     }
 
@@ -37,33 +43,40 @@ export class Node {
         if (this.isRoot()) {  
             return this;
         } else {  
-            return this.toggleSelected(this.previous);
+            for (let child of this.children) {
+                child.setVisible(false);
+            }
+            return this.updateCanvas(this.previous, false);
         }
     }
 
-    getNextSibling() {  
-        if (this.isRoot()) 
-            return this;
+    moveToSibling(indexOfPreviousNode) {  
+        this.previous.nextIndex = indexOfPreviousNode;
+        const next = this.previous.getNext();
 
-        const previous = this.previous;
+        for (let child of this.children) {
+            child.setVisible(false);
+        }
 
-        if (previous.nextIndex < previous.getLastIndex()) 
-            previous.nextIndex++;
+        for (let child of next.children) {
+            child.setVisible(true);
+        }
 
-        return this.toggleSelected(previous.getNext());
-
+        return this.updateCanvas(next);
     }
 
-    getPreviousSibling() {  
-        if (this.isRoot()) 
+    moveNextSibling() {  
+        if (this.previous.nextIndex === this.previous.getLastIndex()) 
+            return this;
+
+        return this.moveToSibling(++this.previous.nextIndex);
+    }
+
+    movePreviousSibling() {  
+        if (this.previous.nextIndex === 0) 
             return this;
         
-        const previous = this.previous;
-
-        if (previous.nextIndex > 0) 
-            previous.nextIndex--;
-
-        return this.toggleSelected(previous.getNext());
+        return this.moveToSibling(--this.previous.nextIndex);
     }
 
     // Broken
