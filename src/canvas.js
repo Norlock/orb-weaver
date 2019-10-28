@@ -19,7 +19,8 @@ export class Canvas {
 
     render(root) {  
         console.log('heigt', this.height);
-        root.render(20, (this.height / 2) - 30);
+        //root.render(50, (this.height / 2) - (root.element.height / 2));  
+        root.render(50, 600);  
         root.setSelected();
         root.setVisible(1, true);
         this.layer.draw();

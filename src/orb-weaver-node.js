@@ -9,6 +9,8 @@ export class OrbWeaverNode extends Node {
         this.element = {};
         this.element.width = 300;
         this.element.height = 60;
+        this.element.topMargin = 60;
+        this.element.rightMargin = 150;
     }
 
     render(x, y) {  
@@ -53,17 +55,18 @@ export class OrbWeaverNode extends Node {
         this.element.group.add(this.element.nodeText);
         this.layer.add(this.element.group);
 
+        console.log("current y", y);
         if (!this.isLeaf()) {
-            console.log("current y", y);
-            const heightPerElement = this.element.height + 25;
-            const totalHeight = heightPerElement * this.children.length;
+            // calculating node positions
+            const heightPerElement = this.element.height + this.element.topMargin;
+            const totalHeightElements = (heightPerElement * this.children.length) - this.element.topMargin; // Remove top margin from first
 
-            let newY = y - (totalHeight / 2);
-            let newX = x + this.element.width + 50;
+            const newX = x + this.element.width + this.element.rightMargin;
+            let newY = (y + (this.element.height / 2)) - (totalHeightElements / 2);
 
             for (let child of this.children) {  
                 child.render(newX, newY);
-                newY = newY + this.element.height + 50;
+                newY = newY + heightPerElement;
             }
         }
     }
