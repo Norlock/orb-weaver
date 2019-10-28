@@ -3,11 +3,16 @@
 * npm install 
 * npm start
 
-### TODO
-* Get current index of node [x] // Do we want this?
-* Add branches on nodes [v]
-* Show childNodes [v]
-* Implement simple Node add GUI [v]
-* render elements on a canvas [x]
-* Remove Nodes [x]
-* Get nodes from from backend [x]
+### Roadmap
+- [x] Add branches on nodes
+- [x] Show childNodes
+- [ ] Hide childNodes correctly 
+- [ ] Implement simple Node add GUI 
+- [x] render elements on a canvas 
+- [ ] Remove Nodes 
+- [ ] Manage nodes through a backend server
+- [ ] Future request: Create a stream to preemptively fetch nodes
+- [ ] Future request: Delete nodes from networks that become to big
+- [ ] Render nodes at better (more random, and not only downwards) x,y positions
+- [ ] Move camera to selected node
+- [ ] Connect lines between previous and child nodes

@@ -14,7 +14,8 @@ export class OrbWeaverNode extends Node {
 
         this.element.group = new Konva.Group({
             x: x,
-            y: y
+            y: y,
+            visible: false
         });
 
         // since this text is inside of a defined area, we can center it using
@@ -73,15 +74,17 @@ export class OrbWeaverNode extends Node {
         this.element.rect.fill('#ddd');
     }
 
-    setVisible(visible) {  
+    setVisible(depth, visible) {  
         if (visible) {  
             this.element.group.show();
         } else {  
             this.element.group.hide();
         }
 
-        for (let child of this.children) {
-            child.setVisible(visible);
+        if (0 < depth) {  
+            for (let child of this.children) {
+                child.setVisible(--depth, visible);
+            }
         }
     }
 }

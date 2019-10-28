@@ -20,7 +20,7 @@ export class Canvas {
     render(root) {  
         root.render(20, 20);
         root.setSelected();
-        root.setVisible(true);
+        root.setVisible(1, true);
         this.layer.draw();
     }
 }

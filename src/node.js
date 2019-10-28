@@ -32,7 +32,7 @@ export class Node {
         } else {  
             const next = this.getNext();
             for (let child of next.children) {
-                child.setVisible(true);
+                child.setVisible(1, true);
             }
             return this.updateCanvas(next);
         }
@@ -44,7 +44,7 @@ export class Node {
             return this;
         } else {  
             for (let child of this.children) {
-                child.setVisible(false);
+                child.setVisible(1, false);
             }
             return this.updateCanvas(this.previous, false);
         }
@@ -55,11 +55,11 @@ export class Node {
         const next = this.previous.getNext();
 
         for (let child of this.children) {
-            child.setVisible(false);
+            child.setVisible(1, false);
         }
 
         for (let child of next.children) {
-            child.setVisible(true);
+            child.setVisible(1, true);
         }
 
         return this.updateCanvas(next);
