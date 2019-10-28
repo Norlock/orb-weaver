@@ -1,4 +1,6 @@
 import { Node } from './node.js';
+import Konva from 'konva';
+
 export class OrbWeaverNode extends Node {  
 
     constructor(layer, name) {  
@@ -10,7 +12,6 @@ export class OrbWeaverNode extends Node {
     }
 
     render(x, y) {  
-        console.log('node', this);
 
         this.element.group = new Konva.Group({
             x: x,
@@ -25,7 +26,6 @@ export class OrbWeaverNode extends Node {
             y: 0,
             text: this.name,
             width: this.element.width,
-            height: this.element.height,
             fontSize: 18,
             fontFamily: 'Calibri',
             fill: '#555',
@@ -53,12 +53,18 @@ export class OrbWeaverNode extends Node {
         this.element.group.add(this.element.nodeText);
         this.layer.add(this.element.group);
 
-        let newX = x + this.element.width + 50;
-        let newY = y;
+        if (!this.isLeaf()) {
+            console.log("current y", y);
+            const heightPerElement = this.element.height + 25;
+            const totalHeight = heightPerElement * this.children.length;
 
-        for (let child of this.children) {  
-            child.render(newX, newY);
-            newY = newY + this.element.height + 50;
+            let newY = y - (totalHeight / 2);
+            let newX = x + this.element.width + 50;
+
+            for (let child of this.children) {  
+                child.render(newX, newY);
+                newY = newY + this.element.height + 50;
+            }
         }
     }
 

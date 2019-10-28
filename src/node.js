@@ -5,6 +5,7 @@ export class Node {
         this.nextIndex = 0;
         this.previous = null;
         this.children = [];
+
     }
 
     addChild(node) {  

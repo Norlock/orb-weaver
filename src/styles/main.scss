@@ -1,8 +1,12 @@
 .canvas-container {  
-    padding: 10px;
     &.selected {  
         color: green;
     }
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
 }
 
 
@@ -13,7 +17,7 @@
     border: solid 1px black;
     width: 400px;
     height: 50px;
-    display: flex;
+    display: none; // Aan voor debugging
     background-color: lightgray;
 
     #title {  
