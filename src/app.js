@@ -5,29 +5,29 @@ import { Canvas } from './canvas.js';
 
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
+const canvas = new Canvas();
 
 let currentNode;
 document.addEventListener('DOMContentLoaded', () => {
-    const canvas = new Canvas();
 
     // Adding dummy nodes
-    currentNode = new OrbWeaverNode(canvas.layer, "Blut Aus Nord");
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Be'lakor"));
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Deathspell Omega"));
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Drudkh"));
+    currentNode = new OrbWeaverNode("Blut Aus Nord");
+    currentNode = currentNode.addChild(new OrbWeaverNode("Be'lakor"));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega"));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh"));
 
-    const urfaust = new OrbWeaverNode(canvas.layer, "Urfaust");
-    urfaust.addChild(new OrbWeaverNode(canvas.layer, "Ruins of beverast"));
-    urfaust.addChild(new OrbWeaverNode(canvas.layer, "Esoteric"));
+    const urfaust = new OrbWeaverNode("Urfaust");
+    urfaust.addChild(new OrbWeaverNode("Ruins of beverast"));
+    urfaust.addChild(new OrbWeaverNode("Esoteric"));
     currentNode = currentNode.addChild(urfaust);
 
-    const sunn = new OrbWeaverNode(canvas.layer, "Sunn O)))");
-    sunn.addChild(new OrbWeaverNode(canvas.layer, "Leprous"));
-    sunn.addChild(new OrbWeaverNode(canvas.layer, "Robbie Basho"));
+    const sunn = new OrbWeaverNode("Sunn O)))");
+    sunn.addChild(new OrbWeaverNode("Leprous"));
+    sunn.addChild(new OrbWeaverNode("Robbie Basho"));
     currentNode.addChild(sunn);
 
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Insomnium"));
-    currentNode = currentNode.addChild(new OrbWeaverNode(canvas.layer, "Gojira"));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium"));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira"));
     
     console.log('currentNode', currentNode);
 
@@ -77,5 +77,7 @@ document.addEventListener("keydown", event => {
             //throw "Unknown key pressed";
     }
 
-    title.innerText = currentNode.name;
+    canvas.panCanvas(currentNode);
+    canvas.rerender();
+    //title.innerText = currentNode.name;
 });

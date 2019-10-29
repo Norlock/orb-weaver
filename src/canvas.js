@@ -18,11 +18,27 @@ export class Canvas {
     }
 
     render(root) {  
-        console.log('heigt', this.height);
-        //root.render(50, (this.height / 2) - (root.element.height / 2));  
-        root.render(50, 600);  
+        this.centerX = (this.width / 2) - (root.element.width * 2); // element.width * 2 because of two rows.
+        this.centerY =  (this.height / 2) - (root.element.height / 2);
+        root.render(this.layer, this.centerX, this.centerY);  
         root.setSelected();
         root.setVisible(1, true);
         this.layer.draw();
+    }
+
+    panCanvas(node) {  
+        this.layer.position({ x: this._getXOffset(node), y: this._getYOffset(node)}); // set position
+    }
+
+    rerender() {  
+        this.layer.draw();
+    }
+
+    _getYOffset(node) {  
+        return this.centerY - node.element.group.attrs.y;
+    }
+
+    _getXOffset(node) {  
+        return this.centerX - node.element.group.attrs.x;
     }
 }

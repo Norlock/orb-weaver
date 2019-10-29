@@ -14,5 +14,6 @@
 - [ ] Future request: Create a stream to preemptively fetch nodes
 - [ ] Future request: Delete nodes from networks that become to big
 - [x] Render nodes at better (more random, and not only downwards) x,y positions
-- [ ] Pan camera to selected node
+- [x] Pan camera to selected node
 - [ ] Connect lines between previous and child nodes
+- [ ] Animate panning of camera

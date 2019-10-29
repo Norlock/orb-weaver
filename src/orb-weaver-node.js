@@ -3,8 +3,8 @@ import Konva from 'konva';
 
 export class OrbWeaverNode extends Node {  
 
-    constructor(layer, name) {  
-        super(layer);
+    constructor(name) {  
+        super();
         this.name = name;
         this.element = {};
         this.element.width = 300;
@@ -13,7 +13,7 @@ export class OrbWeaverNode extends Node {
         this.element.rightMargin = 150;
     }
 
-    render(x, y) {  
+    render(layer, x, y) {  
 
         this.element.group = new Konva.Group({
             x: x,
@@ -53,9 +53,8 @@ export class OrbWeaverNode extends Node {
 
         this.element.group.add(this.element.rect);
         this.element.group.add(this.element.nodeText);
-        this.layer.add(this.element.group);
+        layer.add(this.element.group);
 
-        console.log("current y", y);
         if (!this.isLeaf()) {
             // calculating node positions
             const heightPerElement = this.element.height + this.element.topMargin;
@@ -65,7 +64,7 @@ export class OrbWeaverNode extends Node {
             let newY = (y + (this.element.height / 2)) - (totalHeightElements / 2);
 
             for (let child of this.children) {  
-                child.render(newX, newY);
+                child.render(layer, newX, newY);
                 newY = newY + heightPerElement;
             }
         }

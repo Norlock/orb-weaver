@@ -1,7 +1,6 @@
 export class Node {  
 
-    constructor(layer) {  
-        this.layer = layer;
+    constructor() {  
         this.nextIndex = 0;
         this.previous = null;
         this.children = [];
@@ -21,7 +20,6 @@ export class Node {
     updateCanvas(node) {  
         this.unsetSelected();
         node.setSelected();
-        this.layer.draw();
 
         return node;
     }
