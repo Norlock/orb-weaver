@@ -27,7 +27,16 @@ export class Canvas {
     }
 
     panCanvas(node) {  
-        this.layer.position({ x: this._getXOffset(node), y: this._getYOffset(node)}); // set position
+        // the tween has to be created after the node has been added to the layer
+        const tween = new Konva.Tween({
+            node: this.layer,
+            duration: 0.5,
+            x: this._getXOffset(node),
+            y: this._getYOffset(node),
+            easing: Konva.Easings.EaseOut
+        });
+
+        tween.play();
     }
 
     rerender() {  

@@ -78,6 +78,5 @@ document.addEventListener("keydown", event => {
     }
 
     canvas.panCanvas(currentNode);
-    canvas.rerender();
     //title.innerText = currentNode.name;
 });
