@@ -6,7 +6,6 @@ import mglaImg from '../assets/mgla.jpg';
 import urfaustImg from '../assets/urfaust.jpg'; 
 import gojiraImg from '../assets/87838-gojira.jpg';
 
-const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
 const canvas = new Canvas();
 
@@ -26,19 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
     urfaust.addChild(esoteric);
     currentNode = currentNode.addChild(urfaust);
 
+    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", gojiraImg));
     const sunn = new OrbWeaverNode("Sunn O)))", urfaustImg);
     sunn.addChild(new OrbWeaverNode("Leprous", mglaImg));
     sunn.addChild(new OrbWeaverNode("Robbie Basho", mglaImg));
     currentNode.addChild(sunn);
 
     currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium", urfaustImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", gojiraImg));
     
     console.log('currentNode', currentNode);
 
     currentNode = canvas.render(currentNode);
-
-    title.innerText = currentNode.name;
 });
 
 document.addEventListener("keydown", event => {
@@ -83,5 +80,4 @@ document.addEventListener("keydown", event => {
     }
 
     canvas.panCanvas(currentNode);
-    //title.innerText = currentNode.name;
 });

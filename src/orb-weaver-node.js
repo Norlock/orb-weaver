@@ -6,7 +6,7 @@ export class OrbWeaverNode extends Node {
     constructor(name, imgSrc) {  
         super();
         this.name = name;
-        this.element = new Element(300, 330, 150, 150, imgSrc);
+        this.element = new Element(300, 330, 300, 150, imgSrc);
     }
 
     render(layer, x, y) {  
@@ -16,7 +16,7 @@ export class OrbWeaverNode extends Node {
         layer.add(this.element.group);
 
         this.element.setImage(() => {  
-            layer.draw();
+            layer.batchDraw();
         });
 
         if (!this.isLeaf()) {
@@ -54,8 +54,9 @@ export class OrbWeaverNode extends Node {
         }
 
         if (0 < depth) {  
+            depth--;
             for (let child of this.children) {
-                child.setVisible(--depth, visible);
+                child.setVisible(depth, visible);
             }
         }
     }

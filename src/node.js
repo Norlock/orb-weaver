@@ -10,6 +10,7 @@ export class Node {
     addChild(node) {  
         node.previous = this;
         this.children.push(node);
+        this.nextIndex = Math.floor(this.getLastIndex() / 2);
         return this;
     }
 
@@ -30,9 +31,7 @@ export class Node {
             return this;
         } else {  
             const next = this.getNext();
-            for (let child of next.children) {
-                child.setVisible(1, true);
-            }
+            next.setVisible(1, true);
             return this.updateCanvas(next);
         }
     }
@@ -54,11 +53,11 @@ export class Node {
         const next = this.previous.getNext();
 
         for (let child of this.children) {
-            child.setVisible(1, false);
+            child.setVisible(0, false);
         }
 
         for (let child of next.children) {
-            child.setVisible(1, true);
+            child.setVisible(0, true);
         }
 
         return this.updateCanvas(next);

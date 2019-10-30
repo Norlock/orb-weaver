@@ -25,6 +25,7 @@ export class Canvas {
         root.render(this.layer, this.centerX, this.centerY);  
         root.setSelected();
         root.setVisible(1, true);
+        console.log('root', root);
         return root;
     }
 
@@ -42,7 +43,7 @@ export class Canvas {
     }
 
     rerender() {  
-        this.layer.draw();
+        this.layer.batchDraw();
     }
 
     _getYOffset(node) {  
