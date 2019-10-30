@@ -4,6 +4,7 @@ import { constants } from './constants.js';
 import { Canvas } from './drawing/canvas.js';
 import mglaImg from '../assets/mgla.jpg'; 
 import urfaustImg from '../assets/urfaust.jpg'; 
+import gojiraImg from '../assets/87838-gojira.jpg';
 
 const title = document.getElementById('title');
 const errorMsg = document.getElementById('error-msg');
@@ -20,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const urfaust = new OrbWeaverNode("Urfaust", mglaImg);
     urfaust.addChild(new OrbWeaverNode("Ruins of beverast", mglaImg));
-    urfaust.addChild(new OrbWeaverNode("Esoteric", urfaustImg));
+    const esoteric = new OrbWeaverNode("Esoteric", urfaustImg);
+    esoteric.addChild(new OrbWeaverNode("Mgla", mglaImg));
+    urfaust.addChild(esoteric);
     currentNode = currentNode.addChild(urfaust);
 
     const sunn = new OrbWeaverNode("Sunn O)))", urfaustImg);
@@ -29,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
     currentNode.addChild(sunn);
 
     currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium", urfaustImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", urfaustImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", gojiraImg));
     
     console.log('currentNode', currentNode);
 
-    canvas.render(currentNode.getRoot());
+    currentNode = canvas.render(currentNode);
 
     title.innerText = currentNode.name;
 });

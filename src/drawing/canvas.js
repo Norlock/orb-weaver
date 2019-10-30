@@ -18,13 +18,14 @@ export class Canvas {
         this.stage.add(this.layer);
     }
 
-    render(root) {  
-        this.centerX = (this.width / 2) - (root.element.width * 2); // element.width * 2 because of two rows.
+    render(node) {  
+        const root = node.getRoot();
+        this.centerX = (this.width / 2) - (root.element.width / 2); 
         this.centerY =  (this.height / 2) - (root.element.height / 2);
         root.render(this.layer, this.centerX, this.centerY);  
         root.setSelected();
         root.setVisible(1, true);
-        this.layer.batchDraw();
+        return root;
     }
 
     panCanvas(node) {  

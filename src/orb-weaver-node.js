@@ -1,82 +1,30 @@
 import { Node } from './node.js';
-import Konva from 'konva';
+import { Element } from './drawing/element-builder';
 
 export class OrbWeaverNode extends Node {  
 
-    constructor(name, image) {  
+    constructor(name, imgSrc) {  
         super();
         this.name = name;
-        this.element = {};
-        this.element.image = image;
-        this.element.width = 300;
-        this.element.height = 330;
-        this.element.topMargin = 150;
-        this.element.rightMargin = 150;
+        this.element = new Element(300, 330, 150, 150, imgSrc);
     }
 
     render(layer, x, y) {  
-
-        this.element.group = new Konva.Group({
-            x: x,
-            y: y,
-            visible: false
-        });
-
-        // since this text is inside of a defined area, we can center it using
-        // align: 'center'
-        this.element.nodeText = new Konva.Text({
-            x: 0,
-            y: 0,
-            text: this.name,
-            width: this.element.width,
-            fontSize: 18,
-            fontFamily: 'Calibri',
-            fill: '#555',
-            padding: 20,
-            align: 'center'
-        });
-
-        const imageObj = new Image(300,300);
-        imageObj.src = this.element.image;
-        imageObj.onload = () => {  
-            const frameDim = 300;
-            var img = new Konva.Image({
-                x: 30,
-                y: 60,
-                width: frameDim - 60,
-                height: frameDim - 60,
-                image: imageObj
-            });
-            this.element.group.add(img);
-        };
-
-
-        this.element.rect = new Konva.Rect({
-            x: 0,
-            y: 0,
-            stroke: '#555',
-            strokeWidth: 2,
-            fill: '#ddd',
-            width: this.element.width,
-            height: this.element.height,
-            shadowColor: 'black',
-            shadowBlur: 10,
-            shadowOffsetX: 10,
-            shadowOffsetY: 10,
-            shadowOpacity: 0.2,
-            cornerRadius: 10
-        });
-
-        this.element.group.add(this.element.rect);
-        this.element.group.add(this.element.nodeText);
+        this.element.setGroup(x, y);
+        this.element.setContainer("#ddd");
+        this.element.setTitle(this.name, 20);
         layer.add(this.element.group);
+
+        this.element.setImage(() => {  
+            layer.draw();
+        });
 
         if (!this.isLeaf()) {
             // calculating node positions
-            const heightPerElement = this.element.height + this.element.topMargin;
-            const totalHeightElements = (heightPerElement * this.children.length) - this.element.topMargin; // Remove top margin from first
+            const heightPerElement = this.element.height + this.element.verticalMargin;
+            const totalHeightElements = (heightPerElement * this.children.length) - this.element.verticalMargin; // Remove top margin from first
 
-            const newX = x + this.element.width + this.element.rightMargin;
+            const newX = x + this.element.width + this.element.horizontalMargin;
             let newY = (y + (this.element.height / 2)) - (totalHeightElements / 2);
 
             for (let child of this.children) {  
@@ -88,14 +36,14 @@ export class OrbWeaverNode extends Node {
 
     setSelected() {  
         super.setSelected();
-        this.element.nodeText.fontSize(20);
-        this.element.rect.fill('#dfd');
+        this.element.title.fontSize(22);
+        this.element.container.fill('#dfd');
     }
 
     unsetSelected() {  
         super.unsetSelected();
-        this.element.nodeText.fontSize(18);
-        this.element.rect.fill('#ddd');
+        this.element.title.fontSize(20);
+        this.element.container.fill('#ddd');
     }
 
     setVisible(depth, visible) {  
