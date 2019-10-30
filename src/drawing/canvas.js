@@ -14,6 +14,7 @@ export class Canvas {
         });
 
         this.layer = new Konva.Layer();
+        this.layer.hitGraphEnabled(false);
         this.stage.add(this.layer);
     }
 
@@ -23,17 +24,17 @@ export class Canvas {
         root.render(this.layer, this.centerX, this.centerY);  
         root.setSelected();
         root.setVisible(1, true);
-        this.layer.draw();
+        this.layer.batchDraw();
     }
 
     panCanvas(node) {  
         // the tween has to be created after the node has been added to the layer
         const tween = new Konva.Tween({
             node: this.layer,
-            duration: 0.5,
+            duration: 0.3,
             x: this._getXOffset(node),
             y: this._getYOffset(node),
-            easing: Konva.Easings.EaseOut
+            easing: Konva.Easings.Linear
         });
 
         tween.play();

@@ -4,7 +4,7 @@ module.exports = {
     mode: 'development',
     entry: './src/app.js',
     output: {
-        filename: 'main.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
@@ -18,6 +18,12 @@ module.exports = {
                     'css-loader',
                     // Compiles Sass to CSS
                     'sass-loader',
+                ],
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader',
                 ],
             },
         ],

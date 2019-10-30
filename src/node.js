@@ -65,14 +65,14 @@ export class Node {
     }
 
     moveNextSibling() {  
-        if (this.previous.nextIndex === this.previous.getLastIndex()) 
+        if (this.isRoot() || this.previous.nextIndex === this.previous.getLastIndex())
             return this;
 
         return this.moveToSibling(++this.previous.nextIndex);
     }
 
     movePreviousSibling() {  
-        if (this.previous.nextIndex === 0) 
+        if (this.isRoot() || this.previous.nextIndex === 0) 
             return this;
         
         return this.moveToSibling(--this.previous.nextIndex);

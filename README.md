@@ -8,12 +8,13 @@
 - [x] Show childNodes
 - [ ] Hide childNodes correctly 
 - [ ] Implement simple Node add GUI 
-- [x] render elements on a canvas 
+- [x] Render elements on a canvas 
 - [ ] Remove Nodes 
 - [ ] Manage nodes through a backend server
 - [ ] Future request: Create a stream to preemptively fetch nodes
 - [ ] Future request: Delete nodes from networks that become to big
-- [x] Render nodes at better (more random, and not only downwards) x,y positions
+- [ ] Render nodes at better (more random, and not only downwards) x,y positions
 - [x] Pan camera to selected node
 - [ ] Connect lines between previous and child nodes
-- [ ] Animate panning of camera
+- [x] Animate panning of camera
+- [ ] Add image to nodes 

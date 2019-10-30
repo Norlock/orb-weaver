@@ -3,13 +3,14 @@ import Konva from 'konva';
 
 export class OrbWeaverNode extends Node {  
 
-    constructor(name) {  
+    constructor(name, image) {  
         super();
         this.name = name;
         this.element = {};
+        this.element.image = image;
         this.element.width = 300;
-        this.element.height = 60;
-        this.element.topMargin = 60;
+        this.element.height = 330;
+        this.element.topMargin = 150;
         this.element.rightMargin = 150;
     }
 
@@ -34,6 +35,21 @@ export class OrbWeaverNode extends Node {
             padding: 20,
             align: 'center'
         });
+
+        const imageObj = new Image(300,300);
+        imageObj.src = this.element.image;
+        imageObj.onload = () => {  
+            const frameDim = 300;
+            var img = new Konva.Image({
+                x: 30,
+                y: 60,
+                width: frameDim - 60,
+                height: frameDim - 60,
+                image: imageObj
+            });
+            this.element.group.add(img);
+        };
+
 
         this.element.rect = new Konva.Rect({
             x: 0,
