@@ -6,7 +6,7 @@ export class OrbWeaverNode extends Node {
     constructor(name, imgSrc) {  
         super();
         this.name = name;
-        this.element = new Element(300, 330, 300, 150, imgSrc);
+        this.element = new Element(250, 280, imgSrc);
     }
 
     render(layer, x, y) {  
@@ -20,17 +20,25 @@ export class OrbWeaverNode extends Node {
         });
 
         if (!this.isLeaf()) {
+
             // calculating node positions
-            const heightPerElement = this.element.height + this.element.verticalMargin;
-            const totalHeightElements = (heightPerElement * this.children.length) - this.element.verticalMargin; // Remove top margin from first
+            const renderChildren = (index, mulPi) => {
+                const child = this.children[index];
+                const angle = 7; 
+                console.log('degrees', (Math.PI / angle) * mulPi);
+                const newX = x + (this.element.radius * Math.cos(mulPi * (Math.PI / angle)));
+                const newY = y + (this.element.radius * Math.sin(mulPi * (Math.PI / angle)));
 
-            const newX = x + this.element.width + this.element.horizontalMargin;
-            let newY = (y + (this.element.height / 2)) - (totalHeightElements / 2);
-
-            for (let child of this.children) {  
                 child.render(layer, newX, newY);
-                newY = newY + heightPerElement;
-            }
+
+                const hasNext = index < this.children.length - 1;
+                if (hasNext) {
+                    renderChildren(++index, ++mulPi);
+                } 
+            };
+
+            const mulPi = (this.children.length - 1) / -2; // Negative number will appears on top.
+            renderChildren(0, mulPi); 
         }
     }
 

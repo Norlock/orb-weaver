@@ -1,12 +1,12 @@
 import Konva from 'konva';
 
 export class Element {  
-    constructor(width, height, horizontalMargin, verticalMargin, imgSrc) {  
+    constructor(width, height, imgSrc) {  
         this.width = width;
         this.height = height;
-        this.horizontalMargin = horizontalMargin;
-        this.verticalMargin = verticalMargin;
+        this.margin = 600;
         this.imgSrc = imgSrc;
+        this.radius = this.height + this.margin;
     }
 
     setGroup(x, y) {  
@@ -57,10 +57,10 @@ export class Element {
         const imageObj = new Image();
         imageObj.src = this.imgSrc;
         imageObj.onload = () => {  
-            const frameDim = 240;
+            const frameDim = this.width * 0.8;
             this.image = new Konva.Image({
-                x: 30,
-                y: 60,
+                x: this.width / 10,
+                y: this.height / 5,
                 width: frameDim,
                 height: frameDim,
                 image: imageObj

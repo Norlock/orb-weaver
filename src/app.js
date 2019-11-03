@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Adding dummy nodes
     currentNode = new OrbWeaverNode("Blut Aus Nord", urfaustImg);
-    currentNode = currentNode.addChild(new OrbWeaverNode("Be'lakor", urfaustImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega", mglaImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh", mglaImg));
-
     const urfaust = new OrbWeaverNode("Urfaust", mglaImg);
     urfaust.addChild(new OrbWeaverNode("Ruins of beverast", mglaImg));
     const esoteric = new OrbWeaverNode("Esoteric", urfaustImg);
     esoteric.addChild(new OrbWeaverNode("Mgla", mglaImg));
     urfaust.addChild(esoteric);
     currentNode = currentNode.addChild(urfaust);
-
+    currentNode = currentNode.addChild(new OrbWeaverNode("Be'lakor", urfaustImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh", mglaImg));
     currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", gojiraImg));
     const sunn = new OrbWeaverNode("Sunn O)))", urfaustImg);
     sunn.addChild(new OrbWeaverNode("Leprous", mglaImg));
@@ -33,8 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium", urfaustImg));
     
-    console.log('currentNode', currentNode);
-
     currentNode = canvas.render(currentNode);
 });
 

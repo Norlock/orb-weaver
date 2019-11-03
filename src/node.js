@@ -77,23 +77,6 @@ export class Node {
         return this.moveToSibling(--this.previous.nextIndex);
     }
 
-    // Broken
-    //prepend(node) {  
-        //// Set node pointers
-        //node.add(this);
-        //node.previous = this.previous; 
-        //if(!this.isRoot())
-            //this.previous.next = node; // Set previous pointers
-        //this.previous = node; // Set this pointer
-
-        //return this.toggleSelected(node);
-    //}
-
-    prependHead(node) {  
-        const head = this.getRoot();
-        return head.prepend(node);
-    }
-
     setSelected() {  
         this.selected = true;
     }
