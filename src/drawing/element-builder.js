@@ -4,13 +4,21 @@ export class Element {
     constructor(width, height, imgSrc) {  
         this.width = width;
         this.height = height;
-        this.margin = 600;
+        this.margin = 800;
         this.imgSrc = imgSrc;
         this.radius = this.height + this.margin;
+        this.elementYCenter = (this.height / 2);
+        this.elementXCenter = (this.width / 2);
     }
 
     setGroup(x, y) {  
         this.group = new Konva.Group({
+            x: x,
+            y: y,
+            visible: false
+        });
+
+        this.lines = new Konva.Group({
             x: x,
             y: y,
             visible: false
@@ -69,5 +77,30 @@ export class Element {
             this.group.add(this.image);
             callback();
         };
+    }
+
+    addLine(newX, newY) {  
+        const randomX = newX / 2 + (Math.random() * 100) - 50;
+        const randomY = newY / 2 + (Math.random() * 100) - 50;
+        const line = new Konva.Line({  
+            points: [this.elementXCenter, this.elementYCenter, randomX, randomY, 
+                newX + this.elementXCenter, newY + this.elementYCenter],
+            stroke: '#333',
+            tension: 0.5,
+            strokewidth: 4,
+            linecap: 'round',
+            linejoin: 'round'
+        });
+        this.lines.add(line);
+    }
+    
+    show(previous) {  
+        this.group.show();
+        this.lines.show();
+    }
+
+    hide(previous) {  
+        this.group.hide();
+        this.lines.hide();
     }
 }

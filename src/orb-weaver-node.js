@@ -14,6 +14,7 @@ export class OrbWeaverNode extends Node {
         this.element.setContainer("#ddd");
         this.element.setTitle(this.name, 20);
         layer.add(this.element.group);
+        layer.add(this.element.lines);
 
         this.element.setImage(() => {  
             layer.batchDraw();
@@ -25,20 +26,22 @@ export class OrbWeaverNode extends Node {
             const renderChildren = (index, mulPi) => {
                 const child = this.children[index];
                 const angle = 7; 
-                console.log('degrees', (Math.PI / angle) * mulPi);
-                const newX = x + (this.element.radius * Math.cos(mulPi * (Math.PI / angle)));
-                const newY = y + (this.element.radius * Math.sin(mulPi * (Math.PI / angle)));
+                const lineX = this.element.radius * Math.cos(mulPi * (Math.PI / angle));
+                const lineY = this.element.radius * Math.sin(mulPi * (Math.PI / angle));
+                const newX = x + lineX;
+                const newY = y + lineY;
 
+                this.element.addLine(lineX, lineY);
                 child.render(layer, newX, newY);
 
-                const hasNext = index < this.children.length - 1;
-                if (hasNext) {
+                if (index < this.children.length - 1) {
                     renderChildren(++index, ++mulPi);
                 } 
             };
 
             const mulPi = (this.children.length - 1) / -2; // Negative number will appears on top.
             renderChildren(0, mulPi); 
+            this.element.lines.moveDown();
         }
     }
 
@@ -56,15 +59,14 @@ export class OrbWeaverNode extends Node {
 
     setVisible(depth, visible) {  
         if (visible) {  
-            this.element.group.show();
+            this.element.show(this.previous);
         } else {  
-            this.element.group.hide();
+            this.element.hide(this.previous);
         }
 
         if (0 < depth) {  
-            depth--;
             for (let child of this.children) {
-                child.setVisible(depth, visible);
+                child.setVisible(--depth, visible);
             }
         }
     }
