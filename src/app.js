@@ -8,28 +8,30 @@ import gojiraImg from '../assets/87838-gojira.jpg';
 
 const errorMsg = document.getElementById('error-msg');
 const canvas = new Canvas();
+const layer = canvas.layer;
 
 let currentNode;
 document.addEventListener('DOMContentLoaded', () => {
 
     // Adding dummy nodes
-    currentNode = new OrbWeaverNode("Blut Aus Nord", urfaustImg);
-    const urfaust = new OrbWeaverNode("Urfaust", mglaImg);
-    urfaust.addChild(new OrbWeaverNode("Ruins of beverast", mglaImg));
-    const esoteric = new OrbWeaverNode("Esoteric", urfaustImg);
-    esoteric.addChild(new OrbWeaverNode("Mgla", mglaImg));
+    currentNode = new OrbWeaverNode(layer, "Blut Aus Nord", urfaustImg);
+    const urfaust = new OrbWeaverNode(layer, "Urfaust", mglaImg);
+    urfaust.addChild(new OrbWeaverNode(layer, "Mgla", mglaImg));
+    const esoteric = new OrbWeaverNode(layer, "Esoteric", urfaustImg);
+    esoteric.addChild(new OrbWeaverNode(layer, "Ruins of Beverast", mglaImg));
     urfaust.addChild(esoteric);
     currentNode = currentNode.addChild(urfaust);
-    currentNode = currentNode.addChild(new OrbWeaverNode("Be'lakor", urfaustImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Drudkh", mglaImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Deathspell Omega", mglaImg));
-    currentNode = currentNode.addChild(new OrbWeaverNode("Gojira", gojiraImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Drudkh", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Deathspell Omega", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Gojira", gojiraImg));
     //const sunn = new OrbWeaverNode("Sunn O)))", urfaustImg);
     //sunn.addChild(new OrbWeaverNode("Leprous", mglaImg));
     //sunn.addChild(new OrbWeaverNode("Robbie Basho", mglaImg));
     //currentNode.addChild(sunn);
 
-    currentNode = currentNode.addChild(new OrbWeaverNode("Insomnium", urfaustImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Insomnium", urfaustImg));
     
     currentNode = canvas.render(currentNode);
 });

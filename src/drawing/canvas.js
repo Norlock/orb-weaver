@@ -22,7 +22,7 @@ export class Canvas {
         const root = node.getRoot();
         this.centerX = (this.width / 2) - (root.element.width / 2); 
         this.centerY =  (this.height / 2) - (root.element.height / 2);
-        root.render(this.layer, this.centerX, this.centerY);  
+        root.render(this.centerX, this.centerY, 0);  
         root.setSelected(true);
         root.setVisible(1, true);
         console.log('root', root);
@@ -36,7 +36,7 @@ export class Canvas {
             duration: 0.3,
             x: this._getXOffset(node),
             y: this._getYOffset(node),
-            easing: Konva.Easings.Linear
+            easing: Konva.Easings.EaseIn
         });
 
         tween.play();

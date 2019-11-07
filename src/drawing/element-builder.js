@@ -1,7 +1,8 @@
 import Konva from 'konva';
 
 export class Element {  
-    constructor(width, height, imgSrc) {  
+    constructor(layer, width, height, imgSrc) {  
+        this.layer = layer;
         this.width = width;
         this.height = height;
         this.margin = 800;
@@ -13,7 +14,7 @@ export class Element {
         this.centerWidth = (this.width / 2);
     }
 
-    setGroups(layer, x, y) {  
+    setGroups(x, y) {  
         this.x = x;
         this.y = y;
 
@@ -31,9 +32,8 @@ export class Element {
             visible: false
         });
 
-        layer.add(this.lineGrp);
-        layer.add(this.elementGrp);
-
+        this.layer.add(this.lineGrp);
+        this.layer.add(this.elementGrp);
         this.lineGrp.moveToBottom();
     }
 
@@ -73,7 +73,7 @@ export class Element {
         this.elementGrp.add(this.container);
     }
 
-    setImage(callback) {  
+    setImage() {  
         const imageObj = new Image();
         imageObj.src = this.imgSrc;
         imageObj.onload = () => {  
@@ -88,7 +88,7 @@ export class Element {
             });
 
             this.elementGrp.add(this.image);
-            callback();
+            this.layer.batchDraw();
         };
     }
 
@@ -103,8 +103,8 @@ export class Element {
             stroke: '#333',
             tension: 0.5,
             strokewidth: 4,
-            linecap: 'round',
-            linejoin: 'round',
+            lineCap: 'round',
+            lineJoin: 'round',
             transformsEnabled: 'position'
         });
         this.lineGrp.add(line);
