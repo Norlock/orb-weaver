@@ -7,22 +7,34 @@ export class Element {
         this.margin = 800;
         this.imgSrc = imgSrc;
         this.radius = this.height + this.margin;
-        this.elementYCenter = (this.height / 2);
-        this.elementXCenter = (this.width / 2);
+
+        // Help variables
+        this.centerHeight = (this.height / 2);
+        this.centerWidth = (this.width / 2);
     }
 
-    setGroup(x, y) {  
-        this.group = new Konva.Group({
+    setGroups(layer, x, y) {  
+        this.x = x;
+        this.y = y;
+
+        this.elementGrp = new Konva.Group({
             x: x,
             y: y,
+            transformsEnabled: 'position',
             visible: false
         });
 
-        this.lines = new Konva.Group({
+        this.lineGrp = new Konva.Group({
             x: x,
             y: y,
+            transformsEnabled: 'position',
             visible: false
         });
+
+        layer.add(this.lineGrp);
+        layer.add(this.elementGrp);
+
+        this.lineGrp.moveToBottom();
     }
 
     setTitle(title, fontSize) {  
@@ -38,7 +50,7 @@ export class Element {
             align: 'center'
         });
         
-        this.group.add(this.title);
+        this.elementGrp.add(this.title);
     }
 
     setContainer(color) {  
@@ -58,7 +70,7 @@ export class Element {
             cornerRadius: 10
         });
 
-        this.group.add(this.container);
+        this.elementGrp.add(this.container);
     }
 
     setImage(callback) {  
@@ -71,36 +83,40 @@ export class Element {
                 y: this.height / 5,
                 width: frameDim,
                 height: frameDim,
-                image: imageObj
+                image: imageObj,
+                transformsEnabled: 'position'
             });
 
-            this.group.add(this.image);
+            this.elementGrp.add(this.image);
             callback();
         };
     }
 
-    addLine(newX, newY) {  
-        const randomX = newX / 2 + (Math.random() * 100) - 50;
-        const randomY = newY / 2 + (Math.random() * 100) - 50;
+    addLine(x, y) {  
+        const offset = 200;
+        const centerOffset = offset / 2;
+        const randomX = x / 2 + (Math.random() * offset) - centerOffset;
+        const randomY = y / 2 + (Math.random() * offset) - centerOffset;
         const line = new Konva.Line({  
-            points: [this.elementXCenter, this.elementYCenter, randomX, randomY, 
-                newX + this.elementXCenter, newY + this.elementYCenter],
+            points: [this.centerWidth, this.centerHeight, randomX, randomY, 
+                x + this.centerWidth, y + this.centerHeight],
             stroke: '#333',
             tension: 0.5,
             strokewidth: 4,
             linecap: 'round',
-            linejoin: 'round'
+            linejoin: 'round',
+            transformsEnabled: 'position'
         });
-        this.lines.add(line);
-    }
-    
-    show(previous) {  
-        this.group.show();
-        this.lines.show();
+        this.lineGrp.add(line);
     }
 
-    hide(previous) {  
-        this.group.hide();
-        this.lines.hide();
+    show(visible) {  
+        if (visible) {  
+            this.elementGrp.show();
+            this.lineGrp.show();
+        } else {  
+            this.elementGrp.hide();
+            this.lineGrp.hide();
+        }
     }
 }

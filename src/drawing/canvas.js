@@ -23,7 +23,7 @@ export class Canvas {
         this.centerX = (this.width / 2) - (root.element.width / 2); 
         this.centerY =  (this.height / 2) - (root.element.height / 2);
         root.render(this.layer, this.centerX, this.centerY);  
-        root.setSelected();
+        root.setSelected(true);
         root.setVisible(1, true);
         console.log('root', root);
         return root;
@@ -47,10 +47,10 @@ export class Canvas {
     }
 
     _getYOffset(node) {  
-        return this.centerY - node.element.group.attrs.y;
+        return this.centerY - node.element.y;
     }
 
     _getXOffset(node) {  
-        return this.centerX - node.element.group.attrs.x;
+        return this.centerX - node.element.x;
     }
 }

@@ -4,7 +4,6 @@ export class Node {
         this.nextIndex = 0;
         this.previous = null;
         this.children = [];
-
     }
 
     addChild(node) {  
@@ -19,8 +18,8 @@ export class Node {
     }
 
     updateCanvas(node) {  
-        this.unsetSelected();
-        node.setSelected();
+        this.setSelected(false);
+        node.setSelected(true);
 
         return node;
     }
@@ -77,12 +76,12 @@ export class Node {
         return this.moveToSibling(--this.previous.nextIndex);
     }
 
-    setSelected() {  
-        this.selected = true;
+    setSelected(selected) {  
+        this.selected = selected;
     }
 
-    unsetSelected() {  
-        this.selected = false;
+    setVisible(visible) {  
+        this.visible = visible;
     }
 
     getRoot() {  
