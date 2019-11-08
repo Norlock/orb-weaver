@@ -15,13 +15,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Adding dummy nodes
     currentNode = new OrbWeaverNode(layer, "Blut Aus Nord", urfaustImg);
+    
     const urfaust = new OrbWeaverNode(layer, "Urfaust", mglaImg);
     urfaust.addChild(new OrbWeaverNode(layer, "Mgla", mglaImg));
+
     const esoteric = new OrbWeaverNode(layer, "Esoteric", urfaustImg);
     esoteric.addChild(new OrbWeaverNode(layer, "Ruins of Beverast", mglaImg));
+
     urfaust.addChild(esoteric);
     currentNode = currentNode.addChild(urfaust);
-    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
+
+    const belakor = new OrbWeaverNode(layer, "Be'lakor", urfaustImg);
+    belakor.addChild(new OrbWeaverNode(layer, "Imperium Dekadenz", gojiraImg));
+    belakor.addChild(new OrbWeaverNode(layer, "Schammasch", mglaImg));
+    currentNode = currentNode.addChild(belakor);
+
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Drudkh", mglaImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Deathspell Omega", mglaImg));

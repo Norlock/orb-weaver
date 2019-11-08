@@ -26,8 +26,8 @@ export class Element {
         });
 
         this.lineGrp = new Konva.Group({
-            x: x,
-            y: y,
+            x: x + this.centerWidth,
+            y: y + this.centerHeight,
             transformsEnabled: 'position',
             visible: false
         });
@@ -98,25 +98,28 @@ export class Element {
         const randomX = x / 2 + (Math.random() * offset) - centerOffset;
         const randomY = y / 2 + (Math.random() * offset) - centerOffset;
         const line = new Konva.Line({  
-            points: [this.centerWidth, this.centerHeight, randomX, randomY, 
-                x + this.centerWidth, y + this.centerHeight],
+            points: [0, 0, randomX, randomY, x, y ],
             stroke: '#333',
             tension: 0.5,
             strokewidth: 4,
-            lineCap: 'round',
-            lineJoin: 'round',
             transformsEnabled: 'position'
         });
+
         this.lineGrp.add(line);
     }
 
     show(visible) {  
-        if (visible) {  
-            this.elementGrp.show();
-            this.lineGrp.show();
+        this.elementGrp.visible(visible);
+        this.lineGrp.visible(visible);
+    }
+
+    setSelected(selected) {  
+        if (selected) {  
+            this.title.fontSize(22);
+            this.container.fill('#dfd');
         } else {  
-            this.elementGrp.hide();
-            this.lineGrp.hide();
+            this.title.fontSize(20);
+            this.container.fill('#ddd');
         }
     }
 }
