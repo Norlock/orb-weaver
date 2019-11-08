@@ -105,6 +105,7 @@ export class Element {
             transformsEnabled: 'position'
         });
 
+        this.elementGrp.add(line);
         this.lineGrp.add(line);
     }
 

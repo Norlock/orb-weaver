@@ -25,7 +25,6 @@ export class Canvas {
         root.render(this.centerX, this.centerY, 0);  
         root.setSelected(true);
         root.setVisible(1, true);
-        console.log('root', root);
         return root;
     }
 

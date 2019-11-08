@@ -49,6 +49,7 @@ export class Node {
 
     moveToSibling(indexOfPreviousNode) {  
         this.previous.nextIndex = indexOfPreviousNode;
+        console.log('current index', this.previous.nextIndex);
         const next = this.previous.getNext();
 
         for (let child of this.children) {
@@ -63,17 +64,22 @@ export class Node {
     }
 
     moveNextSibling() {  
-        if (this.isRoot() || this.previous.nextIndex === this.previous.getLastIndex())
+        console.log('previous last index', this.previous.getLastIndex());
+        if (this.isRoot() ) 
             return this;
-
-        return this.moveToSibling(++this.previous.nextIndex);
+        else if (this.previous.nextIndex < this.previous.getLastIndex()) 
+            return this.moveToSibling(++this.previous.nextIndex);
+        else
+            return this.moveToSibling(0);
     }
 
     movePreviousSibling() {  
-        if (this.isRoot() || this.previous.nextIndex === 0) 
+        if (this.isRoot() ) 
             return this;
-        
-        return this.moveToSibling(--this.previous.nextIndex);
+        else if (this.previous.nextIndex > 0) 
+            return this.moveToSibling(--this.previous.nextIndex);
+        else
+            return this.moveToSibling(this.previous.getLastIndex());
     }
 
     setSelected(selected) {  

@@ -1,7 +1,10 @@
 export const constants = {  
-    ARROW_LEFT: 37,
-    ARROW_UP: 38,
-    ARROW_RIGHT: 39,
+    SHRINK: 83,
+    EXPAND: 69,
+    CYCLE_CLOCKWISE: 70,
     ARROW_DOWN: 40,
-    ENTER: 13
+    CYCLE_COUNTER_CLOCKWISE: 86,
+    ARROW_UP: 38,
+    ENTER: 13,
+    HELP: 112
 };

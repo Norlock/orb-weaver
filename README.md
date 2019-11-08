@@ -17,6 +17,7 @@
 - [ ] Render nodes with the correct rotation (not sure).
 - [ ] Render children nodes at the correct side
 - [x] Pan camera to selected node
+- [ ] Select node on click
 - [x] Connect lines between previous and child nodes
 - [x] Animate panning of camera
 - [x] Add image to nodes 

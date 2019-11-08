@@ -28,12 +28,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const belakor = new OrbWeaverNode(layer, "Be'lakor", urfaustImg);
     belakor.addChild(new OrbWeaverNode(layer, "Imperium Dekadenz", gojiraImg));
     belakor.addChild(new OrbWeaverNode(layer, "Schammasch", mglaImg));
-    currentNode = currentNode.addChild(belakor);
+    belakor.addChild(new OrbWeaverNode(layer, "Imperium Dekadenz", gojiraImg));
+    belakor.addChild(new OrbWeaverNode(layer, "Imperium Dekadenz", gojiraImg));
+    belakor.addChild(new OrbWeaverNode(layer, "Imperium Dekadenz", gojiraImg));
+    belakor.addChild(new OrbWeaverNode(layer, "Schammasch", mglaImg));
+    belakor.addChild(new OrbWeaverNode(layer, "Schammasch", mglaImg));
 
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
+    currentNode = currentNode.addChild(belakor);
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Drudkh", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Deathspell Omega", mglaImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Gojira", gojiraImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Be'lakor", urfaustImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Drudkh", mglaImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Deathspell Omega", mglaImg));
     currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Gojira", gojiraImg));
+    currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Drudkh", mglaImg));
+    //currentNode = currentNode.addChild(new OrbWeaverNode(layer, "Deathspell Omega", mglaImg));
     //const sunn = new OrbWeaverNode("Sunn O)))", urfaustImg);
     //sunn.addChild(new OrbWeaverNode("Leprous", mglaImg));
     //sunn.addChild(new OrbWeaverNode("Robbie Basho", mglaImg));
@@ -62,23 +74,28 @@ document.addEventListener("keydown", event => {
         }
     };
 
-    //console.log(event.keyCode);
+    console.log(event.keyCode);
 
     switch (event.keyCode) {  
-        case constants.ARROW_RIGHT: 
+        case constants.EXPAND: 
             currentNode = currentNode.moveNext();
             break;
-        case constants.ARROW_LEFT:
+        case constants.SHRINK:
             currentNode = currentNode.movePrevious();
             break;
         case constants.ARROW_UP:
+        case constants.CYCLE_COUNTER_CLOCKWISE:
             currentNode = currentNode.movePreviousSibling();
             break;
         case constants.ARROW_DOWN:
+        case constants.CYCLE_CLOCKWISE:
             currentNode = currentNode.moveNextSibling();
             break;
         case constants.ENTER:
             addNode();
+            break;
+        case constants.HELP:
+            // TODO
             break;
         default:
             console.log('unknown key pressed');
