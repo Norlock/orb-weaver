@@ -23,3 +23,4 @@
 - [x] Add image to nodes 
 - [ ] Add Node through some popup
 - [ ] Display controls
+- [ ] Change web type on spacebar

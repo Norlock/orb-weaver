@@ -1,38 +1,41 @@
-.canvas-container {  
-    &.selected {  
-        color: green;
-    }
-}
-
 body {
   margin: 0;
   overflow: hidden;
 }
 
-
-#current-item {  
-    flex-direction: column;
-    align-items: center;
-    display: flex;
-    border: solid 1px black;
-    width: 400px;
-    height: 50px;
-    display: none; // Aan voor debugging
-    background-color: lightgray;
-
-    #title {  
+.ow-container {  
+    #help-list {  
+        display: block;
+        position: fixed;
+        list-style: none;
+        padding: 0;
+        margin-left: 10px;
         margin-top: 10px;
-        font-size: 24px;
-    }
+        background-color: seagreen;
+        z-index: 100;
+        border-radius: 5px;
 
-    #error-msg {  
-        flex: 1;
-        max-height: 25px;
-        display: none;
-        background-color: red;
-        color: white;
-        padding: 10px;
-        text-align: center;
+        li {  
+            color: #0a100a;
+            background-color: darkseagreen;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-right: 5px;
+            margin: 2px;
+
+            .key {  
+                padding: 8px;
+                width: 70px;
+                font-weight: bold;
+                background: #0a100a;
+                color: white;
+                margin-right: 5px;
+            }
+        }
     }
 }
+
+
 

@@ -6,7 +6,6 @@ import mglaImg from '../assets/mgla.jpg';
 import urfaustImg from '../assets/urfaust.jpg'; 
 import gojiraImg from '../assets/87838-gojira.jpg';
 
-const errorMsg = document.getElementById('error-msg');
 const canvas = new Canvas();
 const layer = canvas.layer;
 
@@ -65,13 +64,19 @@ document.addEventListener("keydown", event => {
         const bandName = prompt("Please enter the band name", "");
 
         if (bandName == null || bandName == "") {
-            errorMsg.innerText = "User cancelled the prompt.";
-            errorMsg.style.display = "block";
+            console.log('empty band name');
         } else {
-            errorMsg.style.display = "none";
             currentNode.addChild(new OrbWeaverNode(bandName));
             console.log('root', currentNode.getRoot());
         }
+    };
+
+    const toggleVisiblityHelpMenu = () => {
+        const helpMenu = document.getElementById('help-list');
+        if (helpMenu.style.display === "none")
+            helpMenu.style.display = "block";
+        else 
+            helpMenu.style.display = "none";
     };
 
     console.log(event.keyCode);
@@ -84,7 +89,7 @@ document.addEventListener("keydown", event => {
             currentNode = currentNode.movePrevious();
             break;
         case constants.ARROW_UP:
-        case constants.CYCLE_COUNTER_CLOCKWISE:
+        case constants.CYCLE_COUNTERCLOCKWISE:
             currentNode = currentNode.movePreviousSibling();
             break;
         case constants.ARROW_DOWN:
@@ -95,7 +100,7 @@ document.addEventListener("keydown", event => {
             addNode();
             break;
         case constants.HELP:
-            // TODO
+            toggleVisiblityHelpMenu();
             break;
         default:
             console.log('unknown key pressed');

@@ -49,7 +49,6 @@ export class Node {
 
     moveToSibling(indexOfPreviousNode) {  
         this.previous.nextIndex = indexOfPreviousNode;
-        console.log('current index', this.previous.nextIndex);
         const next = this.previous.getNext();
 
         for (let child of this.children) {
@@ -64,7 +63,6 @@ export class Node {
     }
 
     moveNextSibling() {  
-        console.log('previous last index', this.previous.getLastIndex());
         if (this.isRoot() ) 
             return this;
         else if (this.previous.nextIndex < this.previous.getLastIndex()) 
