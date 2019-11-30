@@ -6,5 +6,9 @@ export const constants = {
     CYCLE_COUNTERCLOCKWISE: 86,
     ARROW_UP: 38,
     ENTER: 13,
-    HELP: 112
+    HELP: 112,
+
+    keyCode: {
+
+    },
 };

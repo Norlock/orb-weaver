@@ -1,6 +1,9 @@
 # Bundle
 dist/bundle.js
 
+# tags
+tags
+
 # Logs
 logs
 *.log

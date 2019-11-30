@@ -5,12 +5,18 @@ import { Canvas } from './drawing/canvas.js';
 import mglaImg from '../assets/mgla.jpg'; 
 import urfaustImg from '../assets/urfaust.jpg'; 
 import gojiraImg from '../assets/87838-gojira.jpg';
+import {OrbWeaverService} from './ow-service';
 
 const canvas = new Canvas();
 const layer = canvas.layer;
 
 let currentNode;
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // Connect with backend 
+    const owService = new OrbWeaverService();
+    const collection = await owService.fetchRequest();
+    console.log('collection', collection);
 
     // Adding dummy nodes
     currentNode = new OrbWeaverNode(layer, "Blut Aus Nord", urfaustImg);
