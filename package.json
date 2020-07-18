@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "konva": "^4.0.18",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   }
 }
